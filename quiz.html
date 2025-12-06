@@ -1,0 +1,163 @@
+<head>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:400,700" rel="stylesheet">
+<link href='style.css' rel='stylesheet' type='text/css'>
+<title>DRValues Quiz</title>
+<link rel="icon" type="x-icon" href="icon.png">
+<link rel="shortcut icon" type="x-icon" href="icon.png">
+<meta charset="utf-8">
+</head>
+<body>
+<script type="application/javascript"
+        src="questions.js">
+</script>
+<h1>DRvalues</h1>
+<hr>
+<h2 style="text-align:center;" id="question-number">Loading...</h2>
+<p class="question" id="question-text"></p>
+<button class="button stronglyAgree" onclick="next_question( 1.0)">Strongly Agree</button> <br>
+<button class="button agree" onclick="next_question( 0.5)">Agree</button> <br>
+<button class="button neutral" onclick="next_question( 0.0)">Neutral/Unsure</button> <br>
+<button class="button disagree" onclick="next_question(-0.5)">Disagree</button> <br>
+<button class="button stronglyDisagree" onclick="next_question(-1.0)">Strongly Disagree</button> <br>
+<button class="small_button" onclick="prev_question()" id="back_button">Back</button>
+<button class="small_button_off" id="back_button_off">Back</button><br>
+
+<!-- JavaScript for the test itself -->
+<script>
+
+    // ============================
+    // 1. SHUFFLE QUESTIONS FIRST
+    // ============================
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    shuffle(questions);  // <--- IMPORTANT
+
+
+    // ============================
+    // 2. INITIALIZE ARRAYS & MAX
+    // ============================
+    var max_sol = 0, max_ohc = 0, max_epg = 0, max_atd = 0,
+        max_sog = 0, max_poe = 0, max_dai = 0, max_civ = 0;
+
+    let sol_array = new Array(questions.length);
+    let ohc_array = new Array(questions.length);
+    let epg_array = new Array(questions.length);
+    let atd_array = new Array(questions.length);
+    let sog_array = new Array(questions.length);
+    let poe_array = new Array(questions.length);
+    let dai_array = new Array(questions.length);
+    let civ_array = new Array(questions.length);
+
+    var qn = 0; // current question index
+
+    // compute maximum possible magnitude for each axis
+    for (let i = 0; i < questions.length; i++) {
+        max_sol += Math.abs(questions[i].effect.sol);
+        max_ohc += Math.abs(questions[i].effect.ohc);
+        max_epg += Math.abs(questions[i].effect.epg);
+        max_atd += Math.abs(questions[i].effect.atd);
+        max_sog += Math.abs(questions[i].effect.sog);
+        max_poe += Math.abs(questions[i].effect.poe);
+        max_dai += Math.abs(questions[i].effect.dai);
+        max_civ += Math.abs(questions[i].effect.civ);
+    }
+
+
+    // ============================
+    // 3. DISPLAY QUESTION
+    // ============================
+    function init_question() {
+        document.getElementById("question-text").innerHTML = questions[qn].question;
+        document.getElementById("question-number").innerHTML =
+            "Question " + (qn + 1) + " of " + questions.length;
+
+        if (qn == 0) {
+            document.getElementById("back_button").style.display = 'none';
+            document.getElementById("back_button_off").style.display = 'block';
+        } else {
+            document.getElementById("back_button").style.display = 'block';
+            document.getElementById("back_button_off").style.display = 'none';
+        }
+    }
+
+    init_question();
+
+
+    // ============================
+    // 4. ANSWER QUESTION
+    // ============================
+    function next_question(mult) {
+
+        sol_array[qn] = mult * questions[qn].effect.sol;
+        ohc_array[qn] = mult * questions[qn].effect.ohc;
+        epg_array[qn] = mult * questions[qn].effect.epg;
+        atd_array[qn] = mult * questions[qn].effect.atd;
+        sog_array[qn] = mult * questions[qn].effect.sog;
+        poe_array[qn] = mult * questions[qn].effect.poe;
+        dai_array[qn] = mult * questions[qn].effect.dai;
+        civ_array[qn] = mult * questions[qn].effect.civ;
+
+        qn++;
+
+        if (qn < questions.length) {
+            init_question();
+        } else {
+            results();
+        }
+    }
+
+
+    // ============================
+    // 5. GO BACKWARDS
+    // ============================
+    function prev_question() {
+        if (qn == 0) return;
+        qn--;
+        init_question();
+    }
+
+
+    // ============================
+    // 6. SCORE CALCULATION
+    // ============================
+    function calc_score(score, max) {
+        return (100 * (max + score) / (2 * max)).toFixed(1);
+    }
+
+
+    // ============================
+    // 7. FINAL REDIRECT
+    // ============================
+    function results() {
+
+        let final_sol = sol_array.reduce((a, b) => a + b, 0);
+        let final_ohc = ohc_array.reduce((a, b) => a + b, 0);
+        let final_epg = epg_array.reduce((a, b) => a + b, 0);
+        let final_atd = atd_array.reduce((a, b) => a + b, 0);
+        let final_sog = sog_array.reduce((a, b) => a + b, 0);
+        let final_poe = poe_array.reduce((a, b) => a + b, 0);
+        let final_dai = dai_array.reduce((a, b) => a + b, 0);
+        let final_civ = civ_array.reduce((a, b) => a + b, 0);
+
+        const url =
+            "results.html"
+            + `?sol=${calc_score(final_sol, max_sol)}`
+            + `&ohc=${calc_score(final_ohc, max_ohc)}`
+            + `&epg=${calc_score(final_epg, max_epg)}`
+            + `&atd=${calc_score(final_atd, max_atd)}`
+            + `&sog=${calc_score(final_sog, max_sog)}`
+            + `&poe=${calc_score(final_poe, max_poe)}`
+            + `&dai=${calc_score(final_dai, max_dai)}`
+            + `&civ=${calc_score(final_civ, max_civ)}`;
+
+        location.href = url;
+    }
+
+</script>
+
+</body>

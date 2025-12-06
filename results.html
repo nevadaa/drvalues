@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DRValues Results</title>
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:400,700" rel="stylesheet">
+<link href='style.css' rel='stylesheet' type='text/css'>
+<link rel="icon" type="x-icon" href="icon.png">
+<link rel="shortcut icon" type="x-icon" href="icon.png">
+
+<script>
+    version = "DRValues Test Edition #1"
+</script>
+</head>
+
+<body>
+
+<h1>DRValues</h1>
+<hr>
+<h1>Results</h1>
+
+<img id="img-sol-left" src="value_images/populist.svg" style="display:none;">
+<img id="img-sol-right" src="value_images/aristocratic.svg" style="display:none;">
+
+<img id="img-ohc-left" src="value_images/revolutionary.svg" style="display:none;">
+<img id="img-ohc-right" src="value_images/reactionary.svg" style="display:none;">
+
+<img id="img-epg-left" src="value_images/secular.svg" style="display:none;">
+<img id="img-epg-right" src="value_images/mystical.svg" style="display:none;">
+
+<img id="img-atd-left" src="value_images/puritan.svg" style="display:none;">
+<img id="img-atd-right" src="value_images/libertine.svg" style="display:none;">
+
+<img id="img-sog-left" src="value_images/authoritarian.svg" style="display:none;">
+<img id="img-sog-right" src="value_images/libertarian.svg" style="display:none;">
+
+<img id="img-poe-left" src="value_images/capitalist.svg" style="display:none;">
+<img id="img-poe-right" src="value_images/socialist.svg" style="display:none;">
+
+<img id="img-dai-left" src="value_images/orthodox.svg" style="display:none;">
+<img id="img-dai-right" src="value_images/heretical.svg" style="display:none;">
+
+<img id="img-civ-left" src="value_images/particularist.svg" style="display:none;">
+<img id="img-civ-right" src="value_images/imperialist.svg" style="display:none;">
+<div id="results-container">
+
+    <!-- SOURCE OF LEGITIMACY -->
+    <h2>Source of Legitimacy</h2>
+<div class="axis">
+    <img src="value_images/populist.svg" height="128">
+    <div class="bar sol-left" id="sol-left">    <span class="bar-text" id="sol-left-text"></span></div>
+    <div class="bar-divider"></div>
+    <div class="bar sol-right" id="sol-right"><span class="bar-text" id="sol-right-text"></span></div>
+    <img src="value_images/aristocratic.svg" height="128">
+</div>
+
+
+    <!-- ORIENTATION OF HISTORICAL CHANGE -->
+<h2>Orientation of Historical Change</h2>
+<div class="axis">
+    <img src="value_images/revolutionary.svg" height="128">
+    <div class="bar ohc-left" id="ohc-left"><span class="bar-text" id="ohc-left-text"></span></div>
+    <div class="bar-divider"></div>
+    <div class="bar ohc-right" id="ohc-right"><span class="bar-text" id="ohc-right-text"></span></div>
+    <img src="value_images/reactionary.svg" height="128">
+</div>
+
+
+
+    <!-- EPISTEMIC GROUNDING -->
+<h2>Epistemic Grounding</h2>
+<div class="axis">
+    <img src="value_images/secular.svg" height="128">
+    <div class="bar epg-left" id="epg-left"><span class="bar-text" id="epg-left-text"></span></div>
+    <div class="bar-divider"></div>
+    <div class="bar epg-right" id="epg-right"><span class="bar-text" id="epg-right-text"></span></div>
+    <img src="value_images/mystical.svg" height="128">
+</div>
+
+
+
+    <!-- ANTHROPOLOGY OF DESIRE -->
+<h2>Anthropology of Desire</h2>
+<div class="axis">
+    <img src="value_images/puritan.svg" height="128">
+    <div class="bar atd-left" id="atd-left"><span class="bar-text" id="atd-left-text"></span></div>
+    <div class="bar-divider"></div>
+    <div class="bar atd-right" id="atd-right"><span class="bar-text" id="atd-right-text"></span></div>
+    <img src="value_images/libertine.svg" height="128">
+</div>
+
+
+
+    <!-- STRUCTURE OF GOVERNANCE -->
+<h2>Structure of Governance</h2>
+<div class="axis">
+    <img src="value_images/authoritarian.svg" height="128">
+    <div class="bar sog-left" id="sog-left"><span class="bar-text" id="sog-left-text"></span></div>
+    <div class="bar-divider"></div>
+    <div class="bar sog-right" id="sog-right"><span class="bar-text" id="sog-right-text"></span></div>
+    <img src="value_images/libertarian.svg" height="128">
+</div>
+
+
+
+    <!-- POLITICAL ECONOMY -->
+<h2>Political Economy</h2>
+<div class="axis">
+    <img src="value_images/capitalist.svg" height="128">
+    <div class="bar poe-left" id="poe-left"><span class="bar-text" id="poe-left-text"></span></div>
+    <div class="bar-divider"></div>
+    <div class="bar poe-right" id="poe-right"><span class="bar-text" id="poe-right-text"></span></div>
+    <img src="value_images/socialist.svg" height="128">
+</div>
+
+
+    <!-- DOCTRINE & INTERPRETATION -->
+<h2>Doctrine & Interpretation</h2>
+<div class="axis">
+    <img src="value_images/orthodox.svg" height="128">
+    <div class="bar dai-left" id="dai-left"><span class="bar-text" id="dai-left-text"></span></div>
+    <div class="bar-divider"></div>
+    <div class="bar dai-right" id="dai-right"><span class="bar-text" id="dai-right-text"></span></div>
+    <img src="value_images/heretical.svg" height="128">
+</div>
+
+
+
+    <!-- SCOPE OF CIVILIZATIONAL MISSION -->
+<h2>Scope of Civilizational Mission</h2>
+<div class="axis">
+    <img src="value_images/particularist.svg" height="128">
+    <div class="bar civ-left" id="civ-left"><span class="bar-text" id="civ-left-text"></span></div>
+    <div class="bar-divider"></div>
+    <div class="bar civ-right" id="civ-right"><span class="bar-text" id="civ-right-text"></span></div>
+    <img src="value_images/imperialist.svg" height="128">
+</div>
+
+
+
+</div>
+
+<hr>
+<img id="banner">
+
+<button class="button" onclick="location.href='index.html';">Back</button>
+
+<script>
+/* --------------------------
+   READ QUERY VALUES
+--------------------------- */
+function getQueryVariable(name) {
+    const params = new URLSearchParams(window.location.search);
+    return parseFloat(params.get(name)) || 0;
+}
+
+const sol = getQueryVariable("sol");
+const ohc = getQueryVariable("ohc");
+const epg = getQueryVariable("epg");
+const atd = getQueryVariable("atd");
+const sog = getQueryVariable("sog");
+const poe = getQueryVariable("poe");
+const dai = getQueryVariable("dai");
+const civ = getQueryVariable("civ");
+
+/* --------------------------
+   BAR RENDERING
+--------------------------- */
+function setBars(axis, value) {
+    // value = % toward RIGHT pole
+    const right = document.getElementById(axis + "-right");
+    const left = document.getElementById(axis + "-left");
+
+    right.style.width = value + "%";
+    left.style.width = (100 - value) + "%";
+
+    // optional text output on bars
+    const leftText  = document.getElementById(axis + "-left-text");
+    const rightText = document.getElementById(axis + "-right-text");
+
+    if (leftText)  leftText.textContent  = (100 - value) + "%";
+    if (rightText) rightText.textContent = value + "%";
+}
+
+
+/* Compute percentages (0 = left pole, 100 = right pole) */
+setBars("sol", sol);
+setBars("ohc", ohc);
+setBars("epg", epg);
+setBars("atd", atd);
+setBars("sog", sog);
+setBars("poe", poe);
+setBars("dai", dai);
+setBars("civ", civ);
+
+
+</script>
+<script>
+window.onload = function () {
+
+    /* --------------------------
+       CANVAS BASE
+    --------------------------- */
+    const c = document.createElement("canvas");
+    const ctx = c.getContext("2d");
+    c.width = 800;
+    c.height = 1050;
+    ctx.fillStyle = "#EEEEEE";
+    ctx.fillRect(0, 0, c.width, c.height);
+
+    /* --------------------------
+       FETCH SCORES
+    --------------------------- */
+    const qs = new URLSearchParams(location.search);
+    const sol = parseFloat(qs.get("sol")) || 0;
+    const ohc = parseFloat(qs.get("ohc")) || 0;
+    const epg = parseFloat(qs.get("epg")) || 0;
+    const atd = parseFloat(qs.get("atd")) || 0;
+    const sog = parseFloat(qs.get("sog")) || 0;
+    const poe = parseFloat(qs.get("poe")) || 0;
+    const dai = parseFloat(qs.get("dai")) || 0;
+    const civ = parseFloat(qs.get("civ")) || 0;
+
+    const axes = [
+        { name: "Source of Legitimacy", value: sol, leftId: "img-sol-left", rightId: "img-sol-right", colors: ["#A46422", "#C07A35", "#C6A667", "#B99952"] },
+        { name: "Orientation of Historical Change", value: ohc, leftId: "img-ohc-left", rightId: "img-ohc-right", colors: ["#D62828", "#B72020", "#5A1A1A", "#6D2020"] },
+        { name: "Epistemic Grounding", value: epg, leftId: "img-epg-left", rightId: "img-epg-right", colors: ["#1E88E5", "#2B9AF0", "#7E3FFF", "#6C2AE0"] },
+        { name: "Anthropology of Desire", value: atd, leftId: "img-atd-left", rightId: "img-atd-right", colors: ["#DDDDDD", "#FFFFFF", "#EC407A", "#D8346B"] },
+        { name: "Structure of Governance", value: sog, leftId: "img-sog-left", rightId: "img-sog-right", colors: ["#3949AB", "#4857C2", "#FDD835", "#E6C630"] },
+        { name: "Political Economy", value: poe, leftId: "img-poe-left", rightId: "img-poe-right", colors: ["#43A047", "#55B556", "#E53935", "#CC2F2C"] },
+        { name: "Doctrine & Interpretation", value: dai, leftId: "img-dai-left", rightId: "img-dai-right", colors: ["#616161", "#777777", "#C21807", "#A91506"] },
+        { name: "Civilizational Mission", value: civ, leftId: "img-civ-left", rightId: "img-civ-right", colors: ["#2E7D32", "#3E8F42", "#F9A825", "#D79A20"] }
+    ];
+
+    /* --------------------------
+       HEADER TEXT
+    --------------------------- */
+    ctx.fillStyle = "#222";
+    ctx.font = "700 70px Montserrat";
+    ctx.fillText("DRValues", 20, 85);
+
+    ctx.font = "300 32px Montserrat";
+    ctx.fillText("Your Political Value Profile", 20, 135);
+
+    /* --------------------------
+       DRAW AXES COMPACTLY
+    --------------------------- */
+    const startY = 190;
+    const block = 100;
+
+    axes.forEach((ax, i) => {
+
+        const y = startY + block * i;
+        const pct = ax.value;
+        const pctLeft = 100 - pct;
+        const pctRight = pct;
+
+        /* Axis Label */
+        ctx.font = "700 26px Montserrat";
+        ctx.fillStyle = "#222";
+        ctx.fillText(ax.name, 20, y - 15);
+
+        /* Icons */
+        const leftImg  = document.getElementById(ax.leftId);
+        const rightImg = document.getElementById(ax.rightId);
+
+        ctx.drawImage(leftImg, 20, y + 5, 80, 80);
+        ctx.drawImage(rightImg, 700, y + 5, 80, 80);
+
+        /* Bar background */
+        const barY = y + 30;
+        ctx.fillStyle = "#222";
+        ctx.fillRect(120, barY, 560, 40);
+
+        /* LEFT gradient bar */
+        const lg = ctx.createLinearGradient(120, 0, 400, 0);
+        lg.addColorStop(0, ax.colors[0]);
+        lg.addColorStop(1, ax.colors[1]);
+        ctx.fillStyle = lg;
+        ctx.fillRect(120, barY + 4, 5.6 * pctLeft - 2, 32);
+
+        /* RIGHT gradient bar */
+        const rg = ctx.createLinearGradient(680, 0, 400, 0);
+        rg.addColorStop(0, ax.colors[2]);
+        rg.addColorStop(1, ax.colors[3]);
+        ctx.fillStyle = rg;
+        ctx.fillRect(682 - (5.6 * pctRight), barY + 4, 5.6 * pctRight - 2, 32);
+
+        /* Divider (matches your HTML: 10px × 77.5px) */
+        ctx.fillStyle = "#222";
+        ctx.fillRect(395, y + 7, 10, 77.5);
+
+        /* Percent labels centered */
+        ctx.fillStyle = "#222";
+        ctx.font = "700 26px Montserrat";
+        ctx.textAlign = "center";
+
+        if (pctLeft > 0)  ctx.fillText(pctLeft.toFixed(1) + "%", 120 + (5.6 * pctLeft) / 2, barY + 28);
+        if (pctRight > 0) ctx.fillText(pctRight.toFixed(1) + "%", 680 - (5.6 * pctRight) / 2, barY + 28);
+    });
+
+    /* --------------------------
+       OUTPUT IMAGE
+    --------------------------- */
+    document.getElementById("banner").src = c.toDataURL("image/png");
+};
+</script>
+
+</script>
+
+</body>
+</html>
