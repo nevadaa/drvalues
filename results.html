@@ -199,113 +199,148 @@ setBars("civ", civ);
 <script>
 window.onload = function () {
 
-    /* --------------------------
-       CANVAS BASE
-    --------------------------- */
+    /* ========== CANVAS INIT ========== */
     const c = document.createElement("canvas");
     const ctx = c.getContext("2d");
-    c.width = 800;
-    c.height = 1050;
-    ctx.fillStyle = "#EEEEEE";
+
+    c.width = 900;
+    c.height = 1250;
+    ctx.fillStyle = "#E5E5E5";
     ctx.fillRect(0, 0, c.width, c.height);
 
-    /* --------------------------
-       FETCH SCORES
-    --------------------------- */
-    const qs = new URLSearchParams(location.search);
-    const sol = parseFloat(qs.get("sol")) || 0;
-    const ohc = parseFloat(qs.get("ohc")) || 0;
-    const epg = parseFloat(qs.get("epg")) || 0;
-    const atd = parseFloat(qs.get("atd")) || 0;
-    const sog = parseFloat(qs.get("sog")) || 0;
-    const poe = parseFloat(qs.get("poe")) || 0;
-    const dai = parseFloat(qs.get("dai")) || 0;
-    const civ = parseFloat(qs.get("civ")) || 0;
 
-    const axes = [
-        { name: "Source of Legitimacy", value: sol, leftId: "img-sol-left", rightId: "img-sol-right", colors: ["#A46422", "#C07A35", "#C6A667", "#B99952"] },
-        { name: "Orientation of Historical Change", value: ohc, leftId: "img-ohc-left", rightId: "img-ohc-right", colors: ["#D62828", "#B72020", "#5A1A1A", "#6D2020"] },
-        { name: "Epistemic Grounding", value: epg, leftId: "img-epg-left", rightId: "img-epg-right", colors: ["#1E88E5", "#2B9AF0", "#7E3FFF", "#6C2AE0"] },
-        { name: "Anthropology of Desire", value: atd, leftId: "img-atd-left", rightId: "img-atd-right", colors: ["#DDDDDD", "#FFFFFF", "#EC407A", "#D8346B"] },
-        { name: "Structure of Governance", value: sog, leftId: "img-sog-left", rightId: "img-sog-right", colors: ["#3949AB", "#4857C2", "#FDD835", "#E6C630"] },
-        { name: "Political Economy", value: poe, leftId: "img-poe-left", rightId: "img-poe-right", colors: ["#43A047", "#55B556", "#E53935", "#CC2F2C"] },
-        { name: "Doctrine & Interpretation", value: dai, leftId: "img-dai-left", rightId: "img-dai-right", colors: ["#616161", "#777777", "#C21807", "#A91506"] },
-        { name: "Civilizational Mission", value: civ, leftId: "img-civ-left", rightId: "img-civ-right", colors: ["#2E7D32", "#3E8F42", "#F9A825", "#D79A20"] }
+    /* ========== UTILS ========== */
+    function get(param) {
+        return parseFloat(new URLSearchParams(window.location.search).get(param));
+    }
+
+    const sol = get("sol");
+    const ohc = get("ohc");
+    const epg = get("epg");
+    const atd = get("atd");
+    const sog = get("sog");
+    const poe = get("poe");
+    const dai = get("dai");
+    const civ = get("civ");
+
+    const axisNames = [
+        "Source of Legitimacy",
+        "Orientation of Historical Change",
+        "Epistemic Grounding",
+        "Anthropology of Desire",
+        "Structure of Governance",
+        "Political Economy",
+        "Doctrine & Interpretation",
+        "Civilizational Mission"
     ];
 
-    /* --------------------------
-       HEADER TEXT
-    --------------------------- */
+    const scores = [sol, ohc, epg, atd, sog, poe, dai, civ];
+
+    const leftIcons = [
+        "img-sol-left", "img-ohc-left", "img-epg-left", "img-atd-left",
+        "img-sog-left", "img-poe-left", "img-dai-left", "img-civ-left"
+    ];
+
+    const rightIcons = [
+        "img-sol-right", "img-ohc-right", "img-epg-right", "img-atd-right",
+        "img-sog-right", "img-poe-right", "img-dai-right", "img-civ-right"
+    ];
+
+
+    /* ========== TITLE ========== */
     ctx.fillStyle = "#222";
-    ctx.font = "700 70px Montserrat";
-    ctx.fillText("DRValues", 20, 85);
+    ctx.font = "bold 80px Montserrat";
+    ctx.textAlign = "left";
+    ctx.fillText("DRValues", 40, 100);
 
     ctx.font = "300 32px Montserrat";
-    ctx.fillText("nevadaa.github.io/drvalues", 20, 135);
+    ctx.fillText("nevadaa.github.io/drvalues", 40, 150);
 
-    /* --------------------------
-       DRAW AXES COMPACTLY
-    --------------------------- */
-    const startY = 190;
-    const block = 100;
 
-    axes.forEach((ax, i) => {
+    /* ========== DRAW ALL AXES ========== */
+    let startY = 230;      // first row position
+    const rowHeight = 130; // vertical spacing per axis
+    const barX = 160;      // where bars start (icons at 40)
+    const barW = 600;      // total width of left+right bars
+    const barH = 40;       // bar height
 
-        const y = startY + block * i;
-        const pct = ax.value;
-        const pctLeft = 100 - pct;
-        const pctRight = pct;
+    for (let i = 0; i < 8; i++) {
 
-        /* Axis Label */
-        ctx.font = "700 26px Montserrat";
+        let y = startY + i * rowHeight;
+
+        /* AXIS TITLE */
         ctx.fillStyle = "#222";
-        ctx.fillText(ax.name, 20, y - 15);
+        ctx.font = "bold 30px Montserrat";
+        ctx.textAlign = "left";
+        ctx.fillText(axisNames[i], 40, y - 10);
 
-        /* Icons */
-        const leftImg  = document.getElementById(ax.leftId);
-        const rightImg = document.getElementById(ax.rightId);
 
-        ctx.drawImage(leftImg, 20, y + 5, 80, 80);
-        ctx.drawImage(rightImg, 700, y + 5, 80, 80);
+        /* ICONS */
+        let leftImg = document.getElementById(leftIcons[i]);
+        let rightImg = document.getElementById(rightIcons[i]);
+        ctx.drawImage(leftImg, 40, y + 10, 90, 90);
+        ctx.drawImage(rightImg, 770, y + 10, 90, 90);
 
-        /* Bar background */
-        const barY = y + 30;
+
+        /* BARS */
+        let pctRight = scores[i];
+        let pctLeft = 100 - pctRight;
+
+        let leftW = (pctLeft / 100) * barW;
+        let rightW = (pctRight / 100) * barW;
+
+        // Left gradient
+        let gradLeft = ctx.createLinearGradient(barX, y + 55, barX + leftW, y + 55);
+        switch (i) {
+            case 0: gradLeft.addColorStop(0, "#A46422"); gradLeft.addColorStop(1, "#C07A35"); break;
+            case 1: gradLeft.addColorStop(0, "#D62828"); gradLeft.addColorStop(1, "#B72020"); break;
+            case 2: gradLeft.addColorStop(0, "#1E88E5"); gradLeft.addColorStop(1, "#2B9AF0"); break;
+            case 3: gradLeft.addColorStop(0, "#DDDDDD"); gradLeft.addColorStop(1, "#FFFFFF"); break;
+            case 4: gradLeft.addColorStop(0, "#3949AB"); gradLeft.addColorStop(1, "#4857C2"); break;
+            case 5: gradLeft.addColorStop(0, "#43A047"); gradLeft.addColorStop(1, "#55B556"); break;
+            case 6: gradLeft.addColorStop(0, "#616161"); gradLeft.addColorStop(1, "#777777"); break;
+            case 7: gradLeft.addColorStop(0, "#2E7D32"); gradLeft.addColorStop(1, "#3E8F42"); break;
+        }
+
+        ctx.fillStyle = gradLeft;
+        ctx.fillRect(barX, y + 55, leftW, barH);
+
+        // Right gradient
+        let gradRight = ctx.createLinearGradient(barX + leftW, y + 55, barX + barW, y + 55);
+        switch (i) {
+            case 0: gradRight.addColorStop(0, "#C6A667"); gradRight.addColorStop(1, "#B99952"); break;
+            case 1: gradRight.addColorStop(0, "#5A1A1A"); gradRight.addColorStop(1, "#6D2020"); break;
+            case 2: gradRight.addColorStop(0, "#7E3FFF"); gradRight.addColorStop(1, "#6C2AE0"); break;
+            case 3: gradRight.addColorStop(0, "#EC407A"); gradRight.addColorStop(1, "#D8346B"); break;
+            case 4: gradRight.addColorStop(0, "#FDD835"); gradRight.addColorStop(1, "#E6C630"); break;
+            case 5: gradRight.addColorStop(0, "#E53935"); gradRight.addColorStop(1, "#CC2F2C"); break;
+            case 6: gradRight.addColorStop(0, "#C21807"); gradRight.addColorStop(1, "#A91506"); break;
+            case 7: gradRight.addColorStop(0, "#F9A825"); gradRight.addColorStop(1, "#D79A20"); break;
+        }
+
+        ctx.fillStyle = gradRight;
+        ctx.fillRect(barX + leftW, y + 55, rightW, barH);
+
+
+        /* CENTER DIVIDER */
         ctx.fillStyle = "#222";
-        ctx.fillRect(120, barY, 560, 40);
+        ctx.fillRect(barX + barW/2 - 2, y + 50, 4, barH + 10);
 
-        /* LEFT gradient bar */
-        const lg = ctx.createLinearGradient(120, 0, 400, 0);
-        lg.addColorStop(0, ax.colors[0]);
-        lg.addColorStop(1, ax.colors[1]);
-        ctx.fillStyle = lg;
-        ctx.fillRect(120, barY + 4, 5.6 * pctLeft - 2, 32);
 
-        /* RIGHT gradient bar */
-        const rg = ctx.createLinearGradient(680, 0, 400, 0);
-        rg.addColorStop(0, ax.colors[2]);
-        rg.addColorStop(1, ax.colors[3]);
-        ctx.fillStyle = rg;
-        ctx.fillRect(682 - (5.6 * pctRight), barY + 4, 5.6 * pctRight - 2, 32);
+        /* PERCENT LABELS */
+        ctx.font = "bold 26px Montserrat";
+        ctx.textAlign = "left";
+        ctx.fillText(`${pctLeft.toFixed(1)}%`, barX + 10, y + 82);
 
-        /* Divider (matches your HTML: 10px × 77.5px) */
-        ctx.fillStyle = "#222";
-        ctx.fillRect(395, y + 7, 10, 77.5);
+        ctx.textAlign = "right";
+        ctx.fillText(`${pctRight.toFixed(1)}%`, barX + barW - 10, y + 82);
+    }
 
-        /* Percent labels centered */
-        ctx.fillStyle = "#222";
-        ctx.font = "700 26px Montserrat";
-        ctx.textAlign = "center";
-
-        if (pctLeft > 0)  ctx.fillText(pctLeft.toFixed(1) + "%", 120 + (5.6 * pctLeft) / 2, barY + 28);
-        if (pctRight > 0) ctx.fillText(pctRight.toFixed(1) + "%", 680 - (5.6 * pctRight) / 2, barY + 28);
-    });
-
-    /* --------------------------
-       OUTPUT IMAGE
-    --------------------------- */
-    document.getElementById("banner").src = c.toDataURL("image/png");
+    /* EXPORT */
+    document.getElementById("banner").src = c.toDataURL();
 };
 </script>
+
 
 </script>
 
