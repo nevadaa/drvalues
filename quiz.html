@@ -133,30 +133,36 @@
     // ============================
     // 7. FINAL REDIRECT
     // ============================
-    function results() {
+function results() {
 
-        let final_sol = sol_array.reduce((a, b) => a + b, 0);
-        let final_ohc = ohc_array.reduce((a, b) => a + b, 0);
-        let final_epg = epg_array.reduce((a, b) => a + b, 0);
-        let final_atd = atd_array.reduce((a, b) => a + b, 0);
-        let final_sog = sog_array.reduce((a, b) => a + b, 0);
-        let final_poe = poe_array.reduce((a, b) => a + b, 0);
-        let final_dai = dai_array.reduce((a, b) => a + b, 0);
-        let final_civ = civ_array.reduce((a, b) => a + b, 0);
+    let final_sol = sol_array.reduce((a, b) => a + b, 0);
+    let final_ohc = ohc_array.reduce((a, b) => a + b, 0);
+    let final_epg = epg_array.reduce((a, b) => a + b, 0);
+    let final_atd = atd_array.reduce((a, b) => a + b, 0);
+    let final_sog = sog_array.reduce((a, b) => a + b, 0);
+    let final_poe = poe_array.reduce((a, b) => a + b, 0);
+    let final_dai = dai_array.reduce((a, b) => a + b, 0);
+    let final_civ = civ_array.reduce((a, b) => a + b, 0);
 
-        const url =
-            "results.html"
-            + `?sol=${calc_score(final_sol, max_sol)}`
-            + `&ohc=${calc_score(final_ohc, max_ohc)}`
-            + `&epg=${calc_score(final_epg, max_epg)}`
-            + `&atd=${calc_score(final_atd, max_atd)}`
-            + `&sog=${calc_score(final_sog, max_sog)}`
-            + `&poe=${calc_score(final_poe, max_poe)}`
-            + `&dai=${calc_score(final_dai, max_dai)}`
-            + `&civ=${calc_score(final_civ, max_civ)}`;
-
-        location.href = url;
+    // --- INVERTER: flips the axis so right-pole answers appear as right-pole results ---
+    function inv(x) {
+        return (100 - x).toFixed(1);
     }
+
+    const url =
+        "results.html"
+        + `?sol=${inv(calc_score(final_sol, max_sol))}`
+        + `&ohc=${inv(calc_score(final_ohc, max_ohc))}`
+        + `&epg=${inv(calc_score(final_epg, max_epg))}`
+        + `&atd=${inv(calc_score(final_atd, max_atd))}`
+        + `&sog=${inv(calc_score(final_sog, max_sog))}`
+        + `&poe=${inv(calc_score(final_poe, max_poe))}`
+        + `&dai=${inv(calc_score(final_dai, max_dai))}`
+        + `&civ=${inv(calc_score(final_civ, max_civ))}`;
+
+    location.href = url;
+}
+
 
 </script>
 
