@@ -272,7 +272,7 @@ window.onload = function () {
         ctx.fillStyle = "#222";
         ctx.font = "bold 30px Montserrat";
         ctx.textAlign = "left";
-        ctx.fillText(axisNames[i], 40, y - 10);
+        ctx.fillText(axisNames[i], 40, y);
 
 
         /* ICONS */
@@ -322,13 +322,19 @@ window.onload = function () {
         ctx.fillRect(barX + leftW, y + 55, rightW, barH);
         
 
-        /* PERCENT LABELS */
-        ctx.font = "bold 26px Montserrat";
-        ctx.textAlign = "left";
-        ctx.fillText(`${pctLeft.toFixed(1)}%`, barX + 10, y + 82);
+/* PERCENTAGE LABELS */
+ctx.font = "bold 26px Montserrat";
 
-        ctx.textAlign = "right";
-        ctx.fillText(`${pctRight.toFixed(1)}%`, barX + barW - 10, y + 82);
+/* LEFT % — always dark text */
+ctx.fillStyle = "#222";
+ctx.textAlign = "left";
+ctx.fillText(`${pctLeft.toFixed(1)}%`, barX + 10, y + 82);
+
+/* RIGHT % — always white text for contrast */
+ctx.fillStyle = "#ffffff";
+ctx.textAlign = "right";
+ctx.fillText(`${pctRight.toFixed(1)}%`, barX + barW - 10, y + 82);
+
     }
 
     /* EXPORT */
